@@ -23,5 +23,9 @@ data class News(
 
         @SerializedName("publicationDate")
         @Expose
-        var bankInfoTypeId: Long? = null
+        var bankInfoTypeId: Long? = null,
+
+        @SerializedName("content")
+        @Expose
+        var content: String? = null
 )

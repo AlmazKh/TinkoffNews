@@ -11,4 +11,5 @@ import javax.inject.Singleton
         ]
 )
 interface AppComponent {
+    fun newsFeedComponent(): NewsFeedComponent.Builder
 }
