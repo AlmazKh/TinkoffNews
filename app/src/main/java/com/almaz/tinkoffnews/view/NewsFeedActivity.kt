@@ -3,6 +3,7 @@ package com.almaz.tinkoffnews.view
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.almaz.tinkoffnews.R
 import com.almaz.tinkoffnews.TinkoffNewsApp
+import com.almaz.tinkoffnews.core.News
 import com.almaz.tinkoffnews.presenter.NewsFeedPresenter
 import com.almaz.tinkoffnews.view.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_news_feed.*
@@ -51,12 +52,20 @@ class NewsFeedActivity : BaseActivity(), NewsFeedView {
         newsFeedPresenter.updateNewsFeed()
     }
 
+    override fun updateListView(list: List<News>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun showProgress() {
         swipeContainer.isRefreshing = true
     }
 
     override fun hideProgress() {
         swipeContainer.isRefreshing = false
+    }
+
+    override fun navigateToDetails(news: News) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onDestroy() {
