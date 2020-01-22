@@ -9,6 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.almaz.tinkoffnews.R
 import com.almaz.tinkoffnews.TinkoffNewsApp
+import com.almaz.tinkoffnews.core.model.News
+import com.almaz.tinkoffnews.view.base.MainActivity
+import kotlinx.android.synthetic.main.item_news.tv_title
 
 class NewsFragment : Fragment(), NewsView {
 
@@ -24,7 +27,7 @@ class NewsFragment : Fragment(), NewsView {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-                (activity as NewsFeedActivity).onBackPressed()
+                (activity as MainActivity).onBackPressed()
             }
         }
         return super.onOptionsItemSelected(item)
@@ -39,7 +42,8 @@ class NewsFragment : Fragment(), NewsView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        arguments?.getParcelable<News>("news")
+        tv_title.text = arguments?.getParcelable<News>("news")?.title
     }
 
     companion object {

@@ -1,7 +1,7 @@
 package com.almaz.tinkoffnews.presenter
 
-import com.almaz.tinkoffnews.core.News
-import com.almaz.tinkoffnews.core.NewsFeedInteractor
+import com.almaz.tinkoffnews.core.model.News
+import com.almaz.tinkoffnews.core.interactor.NewsFeedInteractor
 import com.almaz.tinkoffnews.view.NewsFeedView
 
 class NewsFeedPresenter(
@@ -9,14 +9,14 @@ class NewsFeedPresenter(
 ) : BasePresenter<NewsFeedView>() {
 
     fun updateNewsFeed() = newsFeedInteractor
-    .getNewsFromApi()
-    .doOnSubscribe { view?.showProgress() }
-    .doAfterTerminate { view?.hideProgress() }
-    .subscribe({
-        view?.updateListView(it)
-    }, {
-        updateNewsFeedFromCache()
-    })
+            .getNewsFromApi()
+            .doOnSubscribe { view?.showProgress() }
+            .doAfterTerminate { view?.hideProgress() }
+            .subscribe({
+                view?.updateListView(it)
+            }, {
+                updateNewsFeedFromCache()
+            })
 
     fun updateNewsFeedFromCache() {
 

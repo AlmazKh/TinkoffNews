@@ -3,7 +3,8 @@ package com.almaz.tinkoffnews.di.component
 import androidx.appcompat.app.AppCompatActivity
 import com.almaz.tinkoffnews.di.module.NewsFeedModule
 import com.almaz.tinkoffnews.di.scope.ScreenScope
-import com.almaz.tinkoffnews.view.NewsFeedActivity
+import com.almaz.tinkoffnews.view.NewsFeedFragment
+import com.almaz.tinkoffnews.view.NewsFragment
 import dagger.BindsInstance
 import dagger.Subcomponent
 
@@ -22,6 +23,6 @@ interface NewsFeedComponent {
         fun build(): NewsFeedComponent
     }
 
-    fun inject(newsFeedActivity: NewsFeedActivity)
-//    fun inject(postFragment: PostFragment)
+    fun inject(newsFeedFragment: NewsFeedFragment)
+    fun inject(newsFragment: NewsFragment)
 }

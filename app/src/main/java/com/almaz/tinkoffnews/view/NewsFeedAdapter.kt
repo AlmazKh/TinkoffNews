@@ -7,8 +7,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.almaz.tinkoffnews.R
-import com.almaz.tinkoffnews.core.News
+import com.almaz.tinkoffnews.core.model.News
 import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.item_news.view.*
 
 class NewsFeedAdapter(
         private val newsLambda: (News) -> Unit
@@ -29,8 +30,7 @@ class NewsFeedAdapter(
     class NewsFeedViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
         fun bind(news: News) {
-
-
+            containerView.tv_title.text = news.title
         }
     }
 

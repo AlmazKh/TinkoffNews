@@ -1,33 +1,44 @@
 package com.almaz.tinkoffnews.view
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.almaz.tinkoffnews.R
 import com.almaz.tinkoffnews.TinkoffNewsApp
-import com.almaz.tinkoffnews.core.News
+import com.almaz.tinkoffnews.core.model.News
 import com.almaz.tinkoffnews.presenter.NewsFeedPresenter
-import com.almaz.tinkoffnews.view.base.BaseActivity
-import kotlinx.android.synthetic.main.activity_news_feed.*
+import com.almaz.tinkoffnews.view.base.MainActivity
+import kotlinx.android.synthetic.main.fragment_news_feed.*
 import javax.inject.Inject
 
-class NewsFeedActivity : BaseActivity(), NewsFeedView {
+const val NEWS_KEY = "news"
+
+class NewsFeedFragment : Fragment(), NewsFeedView {
 
     @Inject
     lateinit var newsFeedPresenter: NewsFeedPresenter
 
     private var newsFeedAdapter: NewsFeedAdapter? = null
 
-    override val layoutId: Int
-        get() = R.layout.activity_news_feed
-
-    override fun inject() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         TinkoffNewsApp.appComponent
                 .newsFeedComponent()
-                .withActivity(this)
+                .withActivity(activity as AppCompatActivity)
                 .build()
                 .inject(this)
     }
 
-    override fun setupView() {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_news_feed, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         newsFeedPresenter.attachView(this)
 
         swipeContainer.setOnRefreshListener {
@@ -53,7 +64,7 @@ class NewsFeedActivity : BaseActivity(), NewsFeedView {
     }
 
     override fun updateListView(list: List<News>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        newsFeedAdapter?.submitList(list)
     }
 
     override fun showProgress() {
@@ -65,11 +76,17 @@ class NewsFeedActivity : BaseActivity(), NewsFeedView {
     }
 
     override fun navigateToDetails(news: News) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val postBundle = Bundle()
+        postBundle.putParcelable(NEWS_KEY, news)
+        (activity as MainActivity).navigateTo(NewsFragment.toString(), postBundle)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         newsFeedPresenter.detachView()
+    }
+
+    companion object {
+        fun newInstance() = NewsFeedFragment()
     }
 }
